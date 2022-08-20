@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Listado de Instructores</title>
+<link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet"
+	type="text/css">
+<link data-th-href="@{/css/dataTables.bootstrap4.min.css}"
+	rel="stylesheet" type="text/css">
+<link data-th-href="@{/css/all.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+	<div class="container">
+		<img class="sidebar-logo"
+			th:attr="src=@{/images/galaxy-training-logo.png},title=#{logo},alt=#{logo}" />
+		<form action="#" th:action="@{/buscar}"
+			th:object="${instructorEntity}" method="post">
+			<h2>Listado de Instructores</h2>
+			<div class="row">
+
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="name" class="col-form-label"> Nombre </label> <input
+							type="text" th:field="*{nombre}" class="form-control" id="nombre"
+							placeholder="Nombre">
+					</div>
+				</div>
+				<div class="col-sm-6 text-right">
+					<div class="form-group box-main-btn">
+						<span style="display: block; height: 30px"></span>
+
+						<button type="submit" class="btn btn-primary" name="buscar">
+							<i class="fas fa-search"></i> Buscar
+						</button>
+						<button type="submit" class="btn btn-secondary" name="limpiar"
+							th:formaction="@{/limpiar}">
+							<i class="fas fa-eraser"></i> Limpiar
+						</button>
+						<a class="btn btn-success" href="#" th:href="@{/nuevo}"><i
+							class="fas fa-plus"></i> Nuevo</a>
+					</div>
+				</div>
+
+
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="table-responsive">
+						<table class="table table-striped" id="table">
+							<thead>
+								<tr>
+									<th scope="col">Código</th>
+									<th scope="col">Apellido Paterno</th>
+									<th scope="col">Apellido Materno</th>
+									<th scope="col">Nombre</th>
+									<th scope="col">Modificar</th>
+									<th scope="col">Eliminar</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="instructor : ${instructores}">
+									<td scope="row" th:text="${instructor.id}"></td>
+									<td th:text="${instructor.apellidoPaterno}"></td>
+									<td th:text="${instructor.apellidoMaterno}"></td>
+									<td th:text="${instructor.nombre}"></td>
+									<td><a class="btn btn-info"
+										th:href="@{/modificar/{id}(id=${instructor.id})}">
+											Modificar <i class='fas fa-pencil-alt'></i>
+									</a></td>
+									<td>
+										<!-- Modal button -->
+										<button type="button" class="btn btn-warning"
+											data-toggle="modal"
+											th:attr="data-target='#recordDeleteModal'+${instructor.id}">
+											Eliminar <i class="fas fa-trash-alt"></i>
+										</button> <!-- Modal -->
+										<div class="modal fade"
+											th:attr="id='recordDeleteModal'+${instructor.id}"
+											tabindex="-1" role="dialog"
+											aria-labelledby="recordDeleteModalLabel" aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="recordDeleteModalLabel">Confirmación</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														¿Confirma la eliminación del instructor: <label
+															th:text="${instructor.nombre}">?</label>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">No</button>
+														<a class="btn btn-info"
+															th:href="@{/eliminar/{id}(id=${instructor.id})}"> Si
+														</a>
+													</div>
+												</div>
+											</div>
+										</div> <!-- Modal end -->
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<th:block th:include="./layouts/block-script :: script-admin"></th:block>
+	<!-- 	<script  th:src="@{/js/jquery-3.4.1.min.js}"></script>
+	<script  th:src="@{/bootstrap.4.3.1/js/bootstrap.js}"></script>
+	<script  th:src="@{/js/all.js}"></script> -->
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+
+    <div th:fragment="script-admin">
+    
+        <input type="hidden" id="rutaUrl" th:value="@{/}" />
+        
+        <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+        <script th:src="@{/js/popper.min.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+
+        <script th:src="@{/plugins/dataTable/jquery.dataTables.min.js}"></script>
+        <script th:src="@{/plugins/dataTable/dataTables.bootstrap4.min.js}"></script>
+        <script th:src="@{/plugins/toastr/toastr.min.js}"></script>
+        
+        <script>
+            $(document).ready(function() {
+                var rutaUrl = $("#rutaUrl").val();
+
+                // iniciar los tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+                // iniciar datatable con idioma español
+                $('#table').DataTable({
+                    "language": {
+                        "url": rutaUrl + "plugins/dataTable/Spanish.json"
+                    }
+                });
+
+            });
+
+        </script>
+    </div>
+    
+    <div th:fragment="script-admin-reg">
+        <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <script>
+            $(document).ready(function() {
+                $("#sidebarToggle").click(function() {
+                    $('body').toggleClass('sidebar-toggled');
+                    $('#accordionSidebar').toggleClass('toggled');
+                });
+            });
+        </script>
+    </div>
+    
+   
+</body>
+
+</html>

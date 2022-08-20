@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Registro de Instructor</title>
+<link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet"
+	type="text/css">
+<link data-th-href="@{/css/dataTables.bootstrap4.min.css}"
+	rel="stylesheet" type="text/css">
+<link data-th-href="@{/css/all.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div class="container">
+		<img class="sidebar-logo"
+			th:attr="src=@{/images/galaxy-training-logo.png},title=#{logo},alt=#{logo}" />
+		<form action="#" th:action="@{/grabar}"
+			th:object="${instructorEntity}" method="post"
+			class="needs-validation" novalidate>
+			<h2>Registro de Instructores</h2>
+			<!-- 		
+		<label th:text="'codeResponse' + ${codeResponse.mensaje}"></label>
+		<label th:text="'codeResponse' + ${codeResponse.codigo}"></label>
+		 -->
+			<div th:if="${codeResponse.codigo!=null}">
+				<div th:if="${codeResponse.codigo == codeExito}">
+					<div class="alert alert-success" role="alert">
+						<span th:text="${codeResponse.mensaje}"></span>
+					</div>
+				</div>
+				<div th:unless="${codeResponse.codigo == codeExito}">
+					<div class="alert alert-danger" role="alert">
+						<span th:text="${codeResponse.mensaje}"></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<input type="text" th:field="*{id}" hidden="true">
+
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="name" class="col-form-label"> Apellido Paterno
+						</label> <input type="text" th:field="*{apellidoPaterno}"
+							class="form-control" id="apellidoPaterno" placeholder=""
+							required="required">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="name" class="col-form-label"> Apellido Materno
+						</label> <input type="text" th:field="*{apellidoMaterno}"
+							class="form-control" id="apellidoMaterno" placeholder=""
+							required="required">
+					</div>
+				</div>
+
+			</div>
+			<div class="row">
+
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="name" class="col-form-label"> Nombre </label> <input
+							type="text" th:field="*{nombre}" class="form-control" id="nombre"
+							placeholder="" required="required">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="name" class="col-form-label"> Número de Doc. </label>
+						<input type="text" th:field="*{numeroDocumento}"
+							class="form-control" id="numeroDocumento" placeholder=""
+							required="required">
+					</div>
+				</div>
+
+
+			</div>
+			<div class="row">
+
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="name" class="col-form-label"> Teléfono </label> <input
+							type="text" th:field="*{telefono}" class="form-control"
+							id="telefono" placeholder="" required="required">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="name" class="col-form-label"> Correo </label> <input
+							type="email" th:field="*{correo}" class="form-control"
+							id="correo" placeholder="">
+					</div>
+				</div>
+
+			</div>
+
+
+			<div class="row">
+
+				<div class="col-sm-8">
+					<div class="form-group">
+						<label for="name" class="col-form-label"> Resumen </label>
+						<textarea rows="4" cols="80" th:field="*{resumen}"
+							class="form-control" id="resumen">
+                                </textarea>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-sm-5 text-left">
+					<div class="form-group box-main-btn">
+						<span style="display: block; height: 30px;"></span>
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-save"></i> Grabar
+						</button>
+						<a class="btn btn-success" href="#" th:href="@{/cancelar}"> <i
+							class="fas fa-backward"></i> Cancelar
+						</a>
+					</div>
+				</div>
+
+			</div>
+
+		</form>
+	</div>
+
+	<!-- JavaScript for disabling form submissions if there are invalid fields -->
+	<script>
+		// Self-executing function
+		(function() {
+			'use strict';
+			window.addEventListener('load',
+					function() {
+						// Fetch all the forms we want to apply custom Bootstrap validation styles to
+						var forms = document
+								.getElementsByClassName('needs-validation');
+						// Loop over them and prevent submission
+						var validation = Array.prototype.filter.call(forms,
+								function(form) {
+									form.addEventListener('submit', function(
+											event) {
+										if (form.checkValidity() === false) {
+											event.preventDefault();
+											event.stopPropagation();
+										}
+										form.classList.add('was-validated');
+									}, false);
+								});
+					}, false);
+		})();
+	</script>
+
+
+</body>
+
+</html>
